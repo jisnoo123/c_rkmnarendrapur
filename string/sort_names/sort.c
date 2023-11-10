@@ -1,7 +1,9 @@
 //sorting a list of names alphabetically
 #include <stdio.h>
 #include <string.h>
-void reorder(int n , char a[][100]){
+char a[100][100];
+int n;
+void reorder(){
 	char temp[100];
 	int j , pass;
 	for(pass=0;pass<n;pass++){
@@ -15,7 +17,6 @@ void reorder(int n , char a[][100]){
 	}
 }
 int main(){
-	char a[100][100];
 	int n,i;
 	puts("Enter number of names: ");
 	scanf("%d",&n);
@@ -27,12 +28,12 @@ int main(){
 		gets(a[i]);
 	}
 	
-	reorder(n, a);
+	reorder();
 	
 	//Sorting completed
 	
 	//Displaying the array elements
-	
+	printf("\nDisplaying sorted names: \n\n");
 	for(i=0;i<n;i++){
 		puts(a[i]);
 	}
