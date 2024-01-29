@@ -1,9 +1,10 @@
 //Insertion of an element into an array
-#define NULL 0
+#define NULL -1
+#include <stdio.h>
 int insertion(int *a, int l, int u, int p, int e){
     //Returns 0 if insertion not possible else returns 1
     int i;
-    if(a[u]==NULL){
+    if(a[u]!=NULL){
         printf("Array full insertion not possible");
         return 0;
     }
@@ -16,4 +17,39 @@ int insertion(int *a, int l, int u, int p, int e){
         a[p]=e;
         return 1;
     }
+}
+void traverse(int *a, int l, int u){
+    //Here l and u are the two indices of taversing
+    int i=l;
+    while(i<=u){
+        printf("%d ",a[i]);
+        i++;
+    }
+    printf("\nTraversing completed");
+}
+
+int main(){
+    int a[100];
+    int n;
+    for(int i=0;i<100;i++){
+        a[i]=NULL;
+    }
+    printf("\nEnter size of array:");
+    scanf("%d",&n);
+    for(int i=0;i<n;i++){
+        printf("\nEnter element: ");
+        scanf("%d",&a[i]);
+    }
+    printf("\nOriginal matrix:");
+    traverse(a,0,n-1);
+    printf("\nEnter element to insert: ");
+    int e;
+    scanf("%d",&e);
+    printf("\nEnter index of insertion: ");
+    int p;
+    scanf("%d",&p);
+    int msg=insertion(a,0,n,p,e);
+    printf("Message:%d ",msg);
+    printf("New array:");
+    traverse(a,0,n);
 }
