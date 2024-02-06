@@ -70,6 +70,7 @@ void firstpush(int item){
         head=ad;
     }
 }
+
 int main(){
     int inp,item;
     do{
