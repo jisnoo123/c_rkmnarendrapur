@@ -1,51 +1,75 @@
+//Sort the elements using stack
 #include <stdio.h>
-#include <ctype.h>
 #define MAX 100
-int top=-1;
-int st[MAX];
+int pst[MAX],sst[MAX],a[MAX];
+int pt=-1,st=-1;
+//Considered two stacks - one primary and the other secondary
 
-void push(int n){
-    st[++top]=n;
+void push_p(int d){
+    pst[++pt]=d;
 }
 
-int pop(){
-    int d;
-    if(top!=-1){
-        d=st[top--];
-        return d;   
+int pop_p(){
+    int item;
+    if(pt!=-1){
+        item=pst[pt--];
+        return item;
     }
 }
+
+void push_s(int d){
+    sst[++st]=d;
+}
+
+int pop_s(){
+    int item;
+    if(st!=-1){
+        item=sst[st--];
+        return item;
+    }
+}
+
 
 int main(){
-    int num[MAX];
-    int n;
-    printf("Enter number of numbers you want to sort:");
+    int n,d;
+    printf("\nEnter the number of elements to sort:");
     scanf("%d",&n);
-    printf("\nEnter the numbers:");
+
+    //Taking input in an array
     for(int i=0;i<n;i++){
-        printf("\nEnter number:");
-        scanf("%d",&num[i]);
+        printf("\nEnter element:");
+        scanf("%d",&a[i]);
     }
-    //Pushing the first number into the stack
 
-    //Performing operations in the stack
-
-    push(num[0]);
+    //Pushing the first element of array in the primary stack
+    push_p(a[0]);
 
     for(int i=1;i<n;i++){
-        if(num[i]>st[top]){
-            //If the number to be inserted is greater
-            push(num[i]);
+        if(a[i]<=pst[pt]){
+            //Incoming element is less than what is already in the top of the stack
+            push_p(a[i]);
         }
         else{
-            while((num[i]<=st[top])&&top!=-1){
-                //If the number to be inserted is smaller
-                printf("%d",pop());
+            //Incoming element is greater than what is already in the top of the stack
+            while(a[i]>pst[pt]&&pt!=-1){
+                //Pop element from primary st and push into secondary st
+                d=pop_p();
+                push_s(d);
             }
-            push(num[i]);
+            //Finally push the element in primary st
+            push_p(a[i]);
+            //Now pop off every elements from primary stack and push into primary stack
+            while(st!=-1){
+                d=pop_s();
+                push_p(d);
+            }
         }
     }
-    while(top!=-1){
-        printf("%d",pop());
+    
+    //The resultant primary stack is sorted
+    printf("\nSorted elements:");
+    while(pt!=-1){
+        d=pop_p(pt);
+        printf("%d ",d);
     }
 }
