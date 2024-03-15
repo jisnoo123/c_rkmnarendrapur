@@ -15,46 +15,46 @@ char pop(){
 }
 
 int main(){
-    char exp[MAX],*e;
-    printf("\nEnter expression:");
+    char *e,exp[MAX];
+    printf("\nEnter the expression:");
     scanf("%s",exp);
     e=exp;
-
+    int x,f=0;
     while(*e!='\0'){
-        if(*e=='(')
+        if(*e=='('||*e=='{'||*e=='['){
             push(*e);
-        else if(*e==')'){
-            while(st[top]!='('){
-                pop();
-            }
-            pop();
         }
-
-        if(*e=='{')
-            push(*e);
-        else if(*e=='}'){
-            while(st[top]!='{'){
-                pop();
+        else{
+            if(*e==')'){
+                if((x=pop())!='('){
+                    f++;
+                    break;
+                }
             }
-            pop();
-        }
-
-        if(*e=='[')
-            push(*e);
-        else if(*e==']'){
-            while(st[top]!='['){
-                pop();
+            else if(*e=='}'){
+                if((x=pop())!='{'){
+                    f++;
+                    break;
+                }
             }
-            pop();
+            else if(*e==']'){
+                if((x=pop())!='['){
+                    f++;
+                    break;
+                }
+            }
         }
         e++;
     }
 
     //If stack is empty that means parentheses are balanced
-    if(top==-1){
+    if(top==-1&&f==0){
         printf("\nBalanced parentheses");
     }
+    else if(f!=0){
+        printf("\nExpression not correct");
+    }
     else{
-        printf("\nNot Balanced parentheses");
+        printf("\nUnbalanced parantheses");
     }
 }
