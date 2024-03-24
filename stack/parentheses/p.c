@@ -1,13 +1,13 @@
 #include <stdio.h>
 #define MAX 100
-int st[MAX],top=-1;
+char st[MAX],top=-1;
 
-void push(int d){
+void push(char d){
     st[++top]=d;
 }
 
 char pop(){
-    int item;
+    char item;
     if(top!=-1){
         item=st[top--];
         return item;
