@@ -55,6 +55,6 @@ int main(){
         printf("\nExpression not correct");
     }
     else{
-        printf("\nUnbalanced parantheses");
+        printf("\nUnbalanced parentheses");
     }
 }
