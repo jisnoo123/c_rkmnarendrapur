@@ -51,7 +51,7 @@ int main(){
         }
         else{
             //Incoming element is greater than what is already in the top of the stack
-            while(a[i]>pst[pt]&&pt!=-1){
+            while(pt!=-1&&a[i]>pst[pt]){
                 //Pop element from primary st and push into secondary st
                 d=pop_p();
                 push_s(d);
