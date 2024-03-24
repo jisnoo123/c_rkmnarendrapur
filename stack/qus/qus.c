@@ -44,7 +44,7 @@ int main(){
     scanf("%d",&n);
     
     do{
-        printf("\nEnter 1 to enqueue, 2 to dequeue all elements and 3 to stop:");
+        printf("\nEnter 1 to enqueue, 2 to dequeue and 3 to stop:");
         scanf("%d",&inp);
         switch(inp){
             case 1:
