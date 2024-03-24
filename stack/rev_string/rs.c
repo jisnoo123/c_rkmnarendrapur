@@ -12,7 +12,7 @@ void pop(){
 }
 
 int main(){
-    char str[MAX],stack[MAX];
+    char str[MAX];
     printf("\nEnter a string:");
     scanf("%s",&str);
     char *e=str;
