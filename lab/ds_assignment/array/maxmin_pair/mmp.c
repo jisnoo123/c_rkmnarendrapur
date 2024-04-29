@@ -46,10 +46,10 @@ void display(){
 
     //Min diff pair
     if(l[0]>l[1]){
-        printf("Max diff pair: (%d,%d)",l[0],l[1]);
+        printf("Min diff pair: (%d,%d)",l[0],l[1]);
     }
     else{
-        printf("\nMax diff pair: (%d,%d)",l[1],l[0]);
+        printf("\nMin diff pair: (%d,%d)",l[1],l[0]);
     }
 }
 
