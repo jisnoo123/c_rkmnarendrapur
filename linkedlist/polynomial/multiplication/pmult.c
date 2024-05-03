@@ -64,61 +64,42 @@ void entry_p2(){
     while(ch!='N');
 }
 
-void add(){
+void mult(){
     struct node *p=h1;
     struct node *q=h2;
-
-    while((p!=NULL)&&(q!=NULL)){
-        struct node *new=(struct node *)malloc(sizeof(struct node));
-        new->link=NULL;
-        
-        if(fh==NULL){
-            fh=new;
-            f=new;
-        }
-        else{
-            f->link=new;
-            f=new;
-        }
-
-        if((p->e)>(q->e)){
-            new->c=p->c;
-            new->e=p->e;
-            p=p->link;
-        }
-        else if(p->e<q->e){
-            new->c=q->c;
-            new->e=q->e;
-            q=q->link;
-        }
-        else{
-            new->c=q->c+p->c;
-            new->e=q->e;
-            p=p->link;
-            q=q->link;
-        }
-
-    }
-
+    int flag=0,cf,ex;
     while(p!=NULL){
-        struct node *new=(struct node *)malloc(sizeof(struct node));
-        new->link=NULL;
-        f->link=new;
-        f=new;
-        new->c=p->c;
-        new->e=p->e;
+        q=h2;
+        while(q!=NULL){
+            cf=p->c*q->c;
+            ex=p->e+q->e;
+            struct node *ptr=fh;
+            while(ptr!=NULL){
+                if(ptr->e==ex){
+                    flag=1;
+                    ptr->c=ptr->c+cf;
+                }        
+                ptr=ptr->link;
+            }
+            if(flag==0){
+                struct node *new=(struct node *)malloc(sizeof(struct node));
+                new->c=cf;
+                new->e=ex;
+                new->link=NULL;
+                if(fh==NULL){
+                    fh=new;
+                    f=new;
+                }
+                else{
+                    f->link=new;
+                    f=new;
+                }
+            }
+            q=q->link;
+        }
         p=p->link;
     }
 
-    while(q!=NULL){
-        struct node *new=(struct node *)malloc(sizeof(struct node));
-        new->link=NULL;
-        f->link=new;
-        f=new;
-        new->c=q->c;
-        new->e=q->e;
-        q=q->link;
-    }
 }
 
 void traverse(struct node *head){
@@ -129,13 +110,8 @@ void traverse(struct node *head){
         struct node *t;
         t=head;
         while(t->link!=NULL){
-            if(t->link->c<0){
-                printf(" %d x^%d ",t->c,t->e);
-            }
-            else{
-                printf(" %d x^%d+ ",t->c,t->e);
-            }
-            t=t->link;
+                printf("%d x^%d+",t->c,t->e);
+                t=t->link;
         }
         printf("%d x^%d",t->c,t->e);
     }
@@ -150,7 +126,7 @@ int main(){
     traverse(h1);
     printf("\nSecond polynomial\n");
     traverse(h2);
-    add();
+    mult();
     printf("\nResult:");
     traverse(fh);
 }

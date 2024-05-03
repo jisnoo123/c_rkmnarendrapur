@@ -1,10 +1,10 @@
 //Insertion of an element into an array
-#define NULL -1
 #include <stdio.h>
+#define nil -1
 int insertion(int *a, int l, int u, int p, int e){
     //Returns 0 if insertion not possible else returns 1
     int i;
-    if(a[u]!=NULL){
+    if(a[u]!=nil){
         printf("Array full insertion not possible");
         return 0;
     }
@@ -32,7 +32,7 @@ int main(){
     int a[100];
     int n;
     for(int i=0;i<100;i++){
-        a[i]=NULL;
+        a[i]=nil;
     }
     printf("\nEnter size of array:");
     scanf("%d",&n);
@@ -40,7 +40,7 @@ int main(){
         printf("\nEnter element: ");
         scanf("%d",&a[i]);
     }
-    printf("\nOriginal matrix:");
+    printf("\nOriginal array:");
     traverse(a,0,n-1);
     printf("\nEnter element to insert: ");
     int e;
