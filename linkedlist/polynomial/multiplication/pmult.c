@@ -67,10 +67,11 @@ void entry_p2(){
 void mult(){
     struct node *p=h1;
     struct node *q=h2;
-    int flag=0,cf,ex;
+    int flag,cf,ex;
     while(p!=NULL){
         q=h2;
         while(q!=NULL){
+            flag=0;
             cf=p->c*q->c;
             ex=p->e+q->e;
             struct node *ptr=fh;
