@@ -39,7 +39,7 @@ int pop_st1(){
 }
 
 int pop_st2(){
-    if(top1==(n/2)-1){
+    if(top2==(n/2)-1){
         printf("\nUnderflow");
         return -404; //Signal
     }
