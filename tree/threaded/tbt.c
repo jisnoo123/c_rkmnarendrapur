@@ -34,9 +34,9 @@ void insert_right_child(struct node *x){
     struct node *z = create_node();
     printf("\nEnter data:");
     scanf("%d",&z->data);
-    x->rchild = z;
     x->rthread = 0;
     z->rchild = x->rchild;
+    x->rchild = z;
     z->rthread = 1;
 }
 
@@ -86,10 +86,10 @@ void threaded_inorder(){
 
 int main(){
     //Create the head
-    struct node *head = create_node();
+    head = create_node();
     head->data = -1;
     head->rchild = head;
-
+    
     //Create root
     struct node *root = create_node();
     //Link head with root as its left child
