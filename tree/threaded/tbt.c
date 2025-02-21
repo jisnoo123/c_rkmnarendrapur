@@ -89,11 +89,14 @@ int main(){
     head = create_node();
     head->data = -1;
     head->rchild = head;
-    
+
     //Create root
     struct node *root = create_node();
     //Link head with root as its left child
     head->lchild = root;
+    //Point root's rchild to head
+    root->rchild=head;
+    root->rthread=1;
 
     printf("Enter data of root:");
     scanf("%d",&(root->data));
