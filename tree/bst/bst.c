@@ -183,7 +183,9 @@ void delete_bst(struct node *root, int x){
             }
         }
         else{
-
+            int d = insuc(p);
+            delete_bst(root, d);
+            p->data = d;
         }
     }
 }
@@ -204,6 +206,31 @@ void creation(){
 
 int main(){
     creation();
-    printf("Inorder traversal:\n");
-    inorder(root);
+    int ch,d;
+    do{
+        printf("Enter 1 for inorder traversal, 2 for insertion, 3 for deletion, 4 to end:");
+        scanf("%d",&ch);
+
+        switch(ch){
+            case 1:
+                inorder(root);
+                break;
+            
+            case 2:
+                printf("Enter data to be inserted:");
+                scanf("%d",&d);
+                insert_bst(root, d);
+                break;
+            
+            case 3:
+                printf("Enter data to be deleted:");
+                scanf("%d",&d);
+                delete_bst(root, d);
+                break;
+            
+            case 4:
+                break;
+        }
+    }
+    while(ch!=4);
 }
