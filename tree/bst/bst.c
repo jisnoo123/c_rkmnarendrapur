@@ -97,6 +97,97 @@ struct node *search_bst(struct node *rt, int x){
     }
 }
 
+int insuc(struct node *p){
+    // Find the inorder successor of the node pointed by p
+    struct node *q = p->rchild;
+    while(q->lchild!=NULL){
+        q = q->lchild;
+    }
+    return(q->data);
+}
+
+void delete_bst(struct node *root, int x){
+    /* delete x from BST pointed by root*/
+    int found = 0;
+    struct node *p = root;
+    struct node *prev = NULL;
+
+    while(p!=NULL && found==0){
+        if(p->data == x){
+            //Found
+            found = 1;
+        }
+        else if(p->data<x){
+            prev = p;
+            p = p->rchild;
+        }
+        else{
+            prev = p;
+            p = p->lchild;
+        }
+    }
+
+    if(found == 0){
+        //Not found
+        printf("%d not found in tree\n",x);
+    }
+    else{
+        int c;
+        if(p->lchild == NULL && p->rchild == NULL){
+            //Leaf node
+            c = 1;
+        }
+        else if(p->lchild!=NULL && p->rchild!=NULL){
+            //Node to be deleted has two children
+            c = 3;
+        }
+        else{
+            //Node to be deleted has one child
+            c = 2;
+        }
+
+        //Perform the manipulations for deletion
+
+        if(c == 1){
+            if(prev->lchild==p){
+                //Node to be deleted is in the left of prev
+                free(p);
+                prev->lchild = NULL;
+            }
+            else{
+                //Node to be deleted is in the right of prev
+                free(p);
+                prev->rchild = NULL;
+            }
+        }
+        else if(c == 2){
+            if(prev->lchild==p){
+                if(p->rchild==NULL){
+                    //p has a right child
+                    prev->lchild = p->lchild;
+                }
+                else{
+                    //p has a right child
+                    prev->lchild = p->rchild;
+                }
+            }
+            else{
+                if(p->rchild==NULL){
+                    //p has a right child
+                    prev->rchild = p->lchild;
+                }
+                else{
+                    //p has a right child
+                    prev->rchild = p->rchild;
+                }
+            }
+        }
+        else{
+
+        }
+    }
+}
+
 void creation(){
     int d, ch;
     do{
