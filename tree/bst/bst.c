@@ -214,6 +214,7 @@ int main(){
         switch(ch){
             case 1:
                 inorder(root);
+                printf("\n");
                 break;
             
             case 2:
