@@ -116,7 +116,7 @@ int main(){
     scanf("%d", &size);
     fflush(stdin);
 
-    printf("Enter expression:");
+    printf("Enter postfix expression:");
     scanf("%s",pf);
 
     struct node *root = create();
