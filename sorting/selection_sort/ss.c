@@ -19,7 +19,7 @@ void insert()
 
 int select_max(int j)
 {
-    // This method returns the position of the max element from a[1...j]
+    // This method returns the position of the max element from a[0...j]
     // j is the index upto which we will find max, from 1 to j
     int max = a[0];
     int pos = 0;
@@ -38,7 +38,7 @@ int select_max(int j)
 
 void selection_sort()
 {
-    for (int i = n - 1; i >= 2; i--)
+    for (int i = n - 1; i >= 1; i--)
     {
         int pos = select_max(i);
         // Send the max element to the end of the array and the end element in the place of max
