@@ -82,9 +82,9 @@ int main(){
     init();
 
     do{
-        printf("\nEnter 1 to insert, 2 to search, 3 to display and 4 to end\n");
+        printf("\nEnter 1 to insert, 2 to search, 3 to display and 4 to end:");
         scanf("%d", &ch);
-
+        printf("\n");
         switch(ch){
             case 1:
                 input();
