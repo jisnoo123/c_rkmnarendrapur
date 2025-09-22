@@ -60,7 +60,7 @@ void input(){
     printf("\nNow define the transition function:");
     for(int i=0; i<n; i++){
         for(int j=0; j<ni; j++){
-            printf("\nDelta(%d, %d) = ",q[i],inp[j]);
+            printf("\nDelta(q%d, %d) = ",q[i],inp[j]);
             scanf("%d", &table[i][j]);
         }
     }
@@ -73,20 +73,33 @@ void display_transition_table(){
 
     printf("\nThe state transitipn table is:\n");
 
-    printf("    ");
+    printf("         ");
     for(int j=0; j<ni; j++){
         printf("%d  ", inp[j]);
     }
     printf("\n");
 
     for(int i=0; i<n; i++){
-        printf("q%d  ", i);
+        if(q_initial == i && qf[i] == i){
+            printf("-->(q%d)  ", i);
+        }
+        else if(q_initial == i){
+            printf("   (q%d)  ", i);
+        }
+        else if(qf[i] == i){
+            printf("  -->q%d  ", i);
+        }
+        else{
+            printf("    q%d   ",i);
+        }
+
         for(int j=0; j<ni; j++){
             printf("%d  ", table[i][j]);
         }
         printf("\n");
     }
 }
+
 void inp_string(){
     printf("\nEnter the length of input string:");
     scanf("%d", &len);
@@ -139,7 +152,7 @@ void result(){
     printf("\nSequence of states:");
 
     for(int i=0; i<len+1; i++){
-        printf("%d ", sequence[i]);
+        printf("q%d ", sequence[i]);
     }
     printf("\n");
 }
