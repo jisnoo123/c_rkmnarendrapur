@@ -68,6 +68,25 @@ void input(){
     //Input String
 }
 
+void display_transition_table(){
+    // Display the transition table
+
+    printf("\nThe state transitipn table is:\n");
+
+    printf("    ");
+    for(int j=0; j<ni; j++){
+        printf("%d  ", inp[j]);
+    }
+    printf("\n");
+
+    for(int i=0; i<n; i++){
+        printf("q%d  ", i);
+        for(int j=0; j<ni; j++){
+            printf("%d  ", table[i][j]);
+        }
+        printf("\n");
+    }
+}
 void inp_string(){
     printf("\nEnter the length of input string:");
     scanf("%d", &len);
@@ -127,6 +146,7 @@ void result(){
 
 int main(){
     input();
+    display_transition_table();
     inp_string();
     acceptability();
     result();
