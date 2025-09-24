@@ -220,8 +220,14 @@ void compute(){
                         int q1, q2;
                         q1 = trans_table[i+1][inp[ia]];
                         q2 = trans_table[j][inp[ia]];
+                        
+                        if(i==2 && j==1){
+                            printf("\ni = %d, j = %d", i, j);
+                            printf("\ntable[%d][%d]= %d",q1+1, q2, table[q1+1][q2]);
+                            printf("\ntable[%d][%d]= %d", q2+1, q1, table[q2+1][q1]);
+                        }
 
-                        if(table[q1][q2]==1 || table[q2][q1]==1){
+                        if(table[q1-1][q2]==1 || table[q2-1][q1]==1){
                             //Mark
                             table[i][j] = 1;
                             number_of_markings++;
