@@ -9,18 +9,37 @@ int q[MAX], qnf[MAX], qf[MAX], q_initial;
     q_initial: inital state
 */
 
-int n, ni, nf, nnf;
+int n, ni, nf, nnf, nusp;
 /*
     n: No. of states
     nf: No. of final states
     ni: No. of symbols in the input alphabet
     nnf: No. of non final states
+    nusp: No. of unmarked state pairs
 */
 
 int inp[MAX]; // Input Alphabet
 
 int trans_table[MAX][MAX]; // State transition table
 int table[MAX][MAX]; //Myhill table
+
+int indiv[MAX], non_indiv[MAX]; // indiv contains those states which are individual, i.e do not have equivalent states
+
+int n_non_indiv = 0; // No. of non individuals
+
+struct node{
+    int data;
+    struct node *link;
+};
+
+struct node *heads[MAX]; // Array of pointers 
+
+struct node *create_node(int d){
+    struct node *t = (struct node *)malloc(sizeof(struct node));
+    t->data = d;
+    t->link = NULL;
+    return t;
+}
 
 void input(){
     // Taking the states
@@ -78,6 +97,11 @@ void input(){
             printf("\nDelta(q%d, %d) = ",q[i],inp[j]);
             scanf("%d", &trans_table[i][j]);
         }
+    }
+
+    //Initialize the array of pointers
+    for(int i=0; i<MAX; i++){
+        heads[i] = -1;
     }
 }
 
@@ -246,7 +270,134 @@ void compute(){
         itn++;
         display_myhill_table();
     }
+}
 
+int common_element(struct node *a, struct node *b){
+    // Returns 1 if there is any common element between the linked lists pointed by a and b
+    struct node *p = a;
+    struct node *q = b;
+    int flag = 0;
+
+    while(p!=NULL){
+        while(q!=NULL){
+            if(p->data == q->data){
+                flag++;
+                break;
+            }
+            q = q->link;
+        }
+        p = p->link;
+    }
+
+    return flag;
+}
+
+void merge(struct node *p, struct node *q, int j){
+    // Merge the linked lists pointed by p and q.The final linked list will be pointed by p and the head address q would be removed from the array of pointers
+    while(p->link!=NULL){
+        p = p->link;
+    }
+
+    p->link = q;
+
+    heads[j] = -2; //-2 indicates that a previously existing head has been removed.
+}
+
+void remove_common_elements(struct node *head){
+    // Remove common elements from a linked list
+    struct node *p = head;
+
+    while(p!=NULL){
+        struct node *q = p->link;
+        struct node *prev = p;
+        while(q!=NULL){
+            if(p->data == q->data){
+                //Remove q
+                prev->link = q->link;
+                free(q);
+            }
+            q = q->link;
+        }
+        p = p->link;
+    }
+}
+
+void traverse(struct node *head){
+    // Traverse the linked list pointed by head
+    struct node *p = head;
+
+    printf("(");
+    while(p!=NULL){
+        printf("%d ", p->data);
+        non_indiv[n_non_indiv] = p->data;
+        n_non_indiv++;
+        p = p->link;
+    }
+    printf(")\n");
+}
+
+void minimize(){
+    // Find the equivalent states
+    int head_index = 0;
+    nusp = 0;
+
+    // Create linked list of state pairs which are unmarked
+    for(int i=0; i<n-1; i++){
+        for(int j=0; j<n-1; j++){
+            if(table[i][j]==0){
+                nusp++;
+                int q1 = i+1;
+                int q2 = j;
+                heads[head_index] = create_node(q1);
+                head_index[head_index]->link = create_node(q2);
+                head_index++;
+            }
+        }
+    }
+
+    // Find if any state pairs exist with common elements
+    for(int i=0; i<nusp; i++){
+        for(int j=i+1; j<nusp; j++){
+            if(common_element(heads[i], heads[j])){
+                merge(heads[i], heads[j], j);
+            }
+        }
+    }
+
+    // Remove common elements from the merged linked lists, make it clean
+    int head_index = 0;
+    while(heads[head_index]!=-1){
+        if(heads[head_index]!=-2){
+            struct node *head = heads[head_index];
+            remove_common_elements(head);
+        }
+        head_index++;
+    }
+}
+
+void display_result(){
+    int head_index = 0;
+
+    // Display the non individuals
+    while(heads[head_index]!=-1){
+        if(heads[head_index]!=-2){
+            traverse(heads[head_index]);
+        }
+    }
+
+    // Display the individuals
+    for(int i=0; i<n; i++){
+        int flag = 0;
+        for(int j=0; j<n_non_indiv; j++){
+            if(q[i] == non_indiv[j]){
+                flag++;
+                break;
+            }
+        }
+        if(flag == 0){
+            printf("%d ", i);
+        }
+    }
 }
 
 int main(){
@@ -254,4 +405,6 @@ int main(){
     display_transition_table();
     init_table();
     compute();
+    minimize();
+    display_result();
 }
