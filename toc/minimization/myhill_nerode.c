@@ -136,7 +136,7 @@ void init_table(){
 }
 
 void display_myhill_table(){
-    printf("\n");
+    printf("\n\n");
     for(int i=0; i<n-1; i++){
         printf("q%d  ", i+1);
         int k = i+1, c=0;
@@ -154,12 +154,14 @@ void display_myhill_table(){
     for(int j=0; j<n-1; j++){
         printf("q%d ", j);
     }
+
+    printf("\n\n");
 }
 
 void display_transition_table(){
     // Display the transition table
 
-    printf("\nThe state transition table is:\n");
+    printf("\nThe state transition table is:\n\n");
 
     printf("         ");
     for(int j=0; j<ni; j++){
@@ -197,6 +199,8 @@ void display_transition_table(){
         }
         printf("\n");
     }
+
+    printf("\n\n");
 }
 
 void compute(){
@@ -220,12 +224,6 @@ void compute(){
                         int q1, q2;
                         q1 = trans_table[i+1][inp[ia]];
                         q2 = trans_table[j][inp[ia]];
-                        
-                        if(i==2 && j==1){
-                            printf("\ni = %d, j = %d", i, j);
-                            printf("\ntable[%d][%d]= %d",q1+1, q2, table[q1+1][q2]);
-                            printf("\ntable[%d][%d]= %d", q2+1, q1, table[q2+1][q1]);
-                        }
 
                         if(table[q1-1][q2]==1 || table[q2-1][q1]==1){
                             //Mark
@@ -244,7 +242,7 @@ void compute(){
             stop=0;
         }
 
-        printf("\n Myhill Table after itn %d", itn);
+        printf("\nMyhill Table after itn %d", itn);
         itn++;
         display_myhill_table();
     }
