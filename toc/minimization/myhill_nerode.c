@@ -327,7 +327,7 @@ void traverse(struct node *head){
     // Traverse the linked list pointed by head
     struct node *p = head;
 
-    printf("(");
+    printf("( ");
     while(p!=NULL){
         printf("%d ", p->data);
         non_indiv[n_non_indiv] = p->data;
@@ -379,6 +379,7 @@ void minimize(){
 void display_result(){
     int head_index = 0;
 
+    printf("The final equivalence classes are:\n");
     // Display the non individuals
     while(heads[head_index]!=-1){
         if(heads[head_index]!=-2){
@@ -397,7 +398,7 @@ void display_result(){
             }
         }
         if(flag == 0){
-            printf("%d ", i);
+            printf("(%d)\n", i);
         }
     }
 }
