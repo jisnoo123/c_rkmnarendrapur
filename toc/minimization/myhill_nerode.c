@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #define MAX 100
 
 int q[MAX], qnf[MAX], qf[MAX], q_initial; 
@@ -101,7 +102,7 @@ void input(){
 
     //Initialize the array of pointers
     for(int i=0; i<MAX; i++){
-        heads[i] = -1;
+        heads[i] = (struct node *)(-1);
     }
 }
 
@@ -300,7 +301,7 @@ void merge(struct node *p, struct node *q, int j){
 
     p->link = q;
 
-    heads[j] = -2; //-2 indicates that a previously existing head has been removed.
+    heads[j] = (struct node *)(-2); //-2 indicates that a previously existing head has been removed.
 }
 
 void remove_common_elements(struct node *head){
@@ -349,7 +350,7 @@ void minimize(){
                 int q1 = i+1;
                 int q2 = j;
                 heads[head_index] = create_node(q1);
-                head_index[head_index]->link = create_node(q2);
+                heads[head_index]->link = create_node(q2);
                 head_index++;
             }
         }
@@ -365,7 +366,7 @@ void minimize(){
     }
 
     // Remove common elements from the merged linked lists, make it clean
-    int head_index = 0;
+    head_index = 0;
     while(heads[head_index]!=-1){
         if(heads[head_index]!=-2){
             struct node *head = heads[head_index];
@@ -383,6 +384,7 @@ void display_result(){
         if(heads[head_index]!=-2){
             traverse(heads[head_index]);
         }
+        head_index++;
     }
 
     // Display the individuals
