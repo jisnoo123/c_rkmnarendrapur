@@ -35,7 +35,7 @@ void input(){
     // Initial state
     printf("\nEnter the state which is the inital one:");
     scanf("%d", &q_initial);
-    
+
     // Final states
     printf("\nEnter the number of final states:");
     scanf("%d", &nf);
@@ -174,7 +174,7 @@ void display_transition_table(){
         else if(q_initial == i){
             printf("   (q%d)  ", i);
         }
-        else if(qf[i] == i){
+        else if(i+1<=n && qf[i] == i){
             printf("  -->q%d  ", i);
         }
         else{
