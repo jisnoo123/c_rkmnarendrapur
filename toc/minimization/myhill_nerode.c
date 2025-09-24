@@ -159,7 +159,7 @@ void display_myhill_table(){
 void display_transition_table(){
     // Display the transition table
 
-    printf("\nThe state transitipn table is:\n");
+    printf("\nThe state transition table is:\n");
 
     printf("         ");
     for(int j=0; j<ni; j++){
@@ -168,21 +168,32 @@ void display_transition_table(){
     printf("\n");
 
     for(int i=0; i<n; i++){
+        int temp = 0;
+
         if(q_initial == i && qf[i] == i){
             printf("-->(q%d)  ", i);
+            temp++;
         }
         else if(q_initial == i){
-            printf("   (q%d)  ", i);
-        }
-        else if(i+1<=n && qf[i] == i){
             printf("  -->q%d  ", i);
+            temp++;
         }
-        else{
+
+        int fn=0;
+        for(int k=0; k<nf; k++){
+            if(qf[k]==i){
+                fn++;
+                printf("   (q%d)  ", i);
+                break;
+            }
+        }
+
+        if(fn==0 && temp==0){
             printf("    q%d   ",i);
         }
 
         for(int j=0; j<ni; j++){
-            printf("%d  ", table[i][j]);
+            printf("%d  ", trans_table[i][j]);
         }
         printf("\n");
     }
@@ -194,6 +205,7 @@ void compute(){
     display_myhill_table();
 
     int stop = 1;
+    int itn = 1;
 
     while(stop){
         int number_of_markings = 0;
@@ -201,7 +213,7 @@ void compute(){
         for(int i=0; i<n-1; i++){
             int k = i+1, c=0;
             for(int j=0; j<n-1; j++){
-                if(c<k){
+                if(c<k && table[i][j]==0){
                     // Required state pairs
 
                     for(int ia=0; ia<ni; ia++){
@@ -225,10 +237,12 @@ void compute(){
         if(number_of_markings == 0){
             stop=0;
         }
+
+        printf("\n Myhill Table after itn %d", itn);
+        itn++;
+        display_myhill_table();
     }
 
-    printf("\nFinal Myhill Table:");
-    display_myhill_table();
 }
 
 int main(){

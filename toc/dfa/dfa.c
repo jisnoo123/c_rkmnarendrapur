@@ -71,7 +71,7 @@ void input(){
 void display_transition_table(){
     // Display the transition table
 
-    printf("\nThe state transitipn table is:\n");
+    printf("\nThe state transition table is:\n");
 
     printf("         ");
     for(int j=0; j<ni; j++){
@@ -80,16 +80,27 @@ void display_transition_table(){
     printf("\n");
 
     for(int i=0; i<n; i++){
+        int temp = 0;
+
         if(q_initial == i && qf[i] == i){
+            temp++;
             printf("-->(q%d)  ", i);
         }
         else if(q_initial == i){
-            printf("   (q%d)  ", i);
-        }
-        else if(i+1<=n && qf[i] == i){
+            temp++;
             printf("  -->q%d  ", i);
         }
-        else{
+
+        int fn=0;
+        for(int k=0; k<nf; k++){
+            if(qf[k]==i){
+                fn++;
+                printf("   (q%d)  ", i);
+                break;
+            }
+        }
+
+        if(fn==0 && temp==0){
             printf("    q%d   ",i);
         }
 
