@@ -86,7 +86,7 @@ void display_transition_table(){
         else if(q_initial == i){
             printf("   (q%d)  ", i);
         }
-        else if(qf[i] == i){
+        else if(i+1<=n && qf[i] == i){
             printf("  -->q%d  ", i);
         }
         else{
