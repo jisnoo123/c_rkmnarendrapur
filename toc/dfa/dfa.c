@@ -68,6 +68,21 @@ void input(){
     //Input String
 }
 
+int check_final(int q){
+    // Check if a state is a final state or not
+    int i=0, flag = 0;
+
+    while(qf[i]!=-1){
+        if(qf[i]==i){
+            flag++;
+            break;
+        }
+        i++;
+    }
+
+    return flag;
+}
+
 void display_transition_table(){
     // Display the transition table
 
@@ -82,7 +97,7 @@ void display_transition_table(){
     for(int i=0; i<n; i++){
         int temp = 0;
 
-        if(q_initial == i && i+1<=nf){
+        if(q_initial == i && check_final(i)==1){
             temp++;
             printf("-->(q%d)  ", i);
         }

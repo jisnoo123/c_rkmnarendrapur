@@ -42,6 +42,21 @@ struct node *create_node(int d){
     return t;
 }
 
+int check_final(int q){
+    // Check if a state is a final state or not
+    int i=0, flag = 0;
+
+    while(qf[i]!=-1){
+        if(qf[i]==i){
+            flag++;
+            break;
+        }
+        i++;
+    }
+
+    return flag;
+}
+
 void input(){
     // Taking the states
     printf("Enter the number of states in the DFA:");
@@ -59,6 +74,11 @@ void input(){
     // Final states
     printf("\nEnter the number of final states:");
     scanf("%d", &nf);
+
+    // Initial initialisation of array of final states with -1
+    for(int i=0; i<MAX; i++){
+        qf[i] = -1;
+    }
 
     printf("\nEnter the state numbers which are final:");
     for(int i=0; i<nf; i++){
@@ -183,10 +203,11 @@ void display_myhill_table(){
     printf("\n\n");
 }
 
+
 void display_transition_table(){
     // Display the transition table
 
-    printf("\nThe state transition table is:\n\n");
+    printf("\nThe state transition table is:\n");
 
     printf("         ");
     for(int j=0; j<ni; j++){
@@ -197,35 +218,36 @@ void display_transition_table(){
     for(int i=0; i<n; i++){
         int temp = 0;
 
-        if(q_initial == i && qf[i] == i){
-            printf("-->(q%d)  ", i);
+        if(q_initial == i && check_final(i)==1){
             temp++;
+            printf("-->(q%d)  ", i);
         }
         else if(q_initial == i){
-            printf("  -->q%d  ", i);
             temp++;
+            printf("  -->q%d  ", i);
         }
 
         int fn=0;
-        for(int k=0; k<nf; k++){
-            if(qf[k]==i){
-                fn++;
-                printf("   (q%d)  ", i);
-                break;
+
+        if(temp==0){
+            for(int k=0; k<nf; k++){
+                if(qf[k]==i){
+                    fn++;
+                    printf("   (q%d)  ", i);
+                    break;
+                }
             }
         }
-
+        
         if(fn==0 && temp==0){
             printf("    q%d   ",i);
         }
 
         for(int j=0; j<ni; j++){
-            printf("%d  ", trans_table[i][j]);
+            printf("%d  ", table[i][j]);
         }
         printf("\n");
     }
-
-    printf("\n\n");
 }
 
 void compute(){
