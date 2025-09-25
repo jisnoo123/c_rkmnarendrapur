@@ -25,6 +25,6 @@ int main(){
     heads[head_index] = (struct node *)(-2);
 
     for(int i=0; i<3; i++){
-        printf("%d ", heads[i]);
+        printf("%u ", heads[i]);
     }
 }

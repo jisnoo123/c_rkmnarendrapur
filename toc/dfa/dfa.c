@@ -82,7 +82,7 @@ void display_transition_table(){
     for(int i=0; i<n; i++){
         int temp = 0;
 
-        if(q_initial == i && qf[i] == i){
+        if(q_initial == i && i+1<=nf){
             temp++;
             printf("-->(q%d)  ", i);
         }
@@ -92,14 +92,17 @@ void display_transition_table(){
         }
 
         int fn=0;
-        for(int k=0; k<nf; k++){
-            if(qf[k]==i){
-                fn++;
-                printf("   (q%d)  ", i);
-                break;
+
+        if(temp==0){
+            for(int k=0; k<nf; k++){
+                if(qf[k]==i){
+                    fn++;
+                    printf("   (q%d)  ", i);
+                    break;
+                }
             }
         }
-
+        
         if(fn==0 && temp==0){
             printf("    q%d   ",i);
         }
