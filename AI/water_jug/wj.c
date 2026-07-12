@@ -4,9 +4,11 @@
 struct node{
 	int x, y;
 	struct node *next;
+	struct node *parent;
 };
 
 struct node *head = NULL;
+struct node *goal;
 
 struct node* assign(int a, int b){
 	// Assign a node to the end of the linked list
@@ -18,6 +20,7 @@ struct node* assign(int a, int b){
 	t->next = NULL;
 	t->x = a;
 	t->y = b;
+	t->parent = head;
 	last->next = t;
 	return t;
 }
@@ -33,7 +36,7 @@ int production_rules(){
 	}
 
 	if(b<3){
-		assign(a, 3);
+		goal = assign(a, 3);
 		//printf("%d 3\n", a);
 		if(a==2){ return 1;}
 	}
@@ -44,7 +47,7 @@ int production_rules(){
 	}
 
 	if(b>0){
-		assign(a, 0);
+		goal = assign(a, 0);
 		//printf("%d 0\n", a);
 		if(a==2){return 1;}
 	}
@@ -55,13 +58,13 @@ int production_rules(){
 	}
 
 	if(a+b>=3 && a>0){
-		assign(a-(3-b), 3);
+		goal = assign(a-(3-b), 3);
 		//printf("%d 3\n", a-(3-b));
 		if(a-(3-b)==2){return 1;}
 	}
 
 	if(a+b<=4 && b>0){
-		assign(a+b, 0);
+		goal = assign(a+b, 0);
 		//printf("%d 0\n", a+b);
 		if(a+b==2){return 1;}
 	}
@@ -72,7 +75,7 @@ int production_rules(){
 	}
 
 	if(a==0 && b==2){
-		assign(2, 0);
+		goal = assign(2, 0);
 		//printf("2 0\n");
 		return 1;
 	}
@@ -86,6 +89,7 @@ void BFS(){
 	NODE_LIST->x = 0;
 	NODE_LIST->y = 0;
 	NODE_LIST->next = NULL;
+	NODE_LIST->parent = NULL;
 	head = NODE_LIST;
 	struct node *head1 = head;
 	
@@ -93,10 +97,10 @@ void BFS(){
 		int res = production_rules();
 		if(res == 1){
 			printf("Successful!\n");
-			struct node *p = head1;
+			struct node *p = goal;
 			while(p!=NULL){
-				printf("(%d, %d) -> ", p->x, p->y);
-				p = p->next;
+				printf("(%d, %d) <- ", p->x, p->y);
+				p = p->parent;
 			}
 			break;
 		}
