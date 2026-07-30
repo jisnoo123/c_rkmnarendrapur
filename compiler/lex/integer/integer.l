@@ -3,8 +3,8 @@
 %}
 
 %%
-[+-]?[0-9]+        {printf("Valid floating point number");}
-.+                 {printf("Invalid floating point number");}
+[+-]?[0-9]+        {printf("Valid integer");}
+.+                 {printf("Invalid integer");}
 %%
 
 int main(){
