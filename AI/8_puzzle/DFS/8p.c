@@ -136,7 +136,6 @@ void DFS(){
     do{
         res = shuffle();
         if(res == 1){
-            printf("\nResult: %d\n", res);
             display_matrix(state);
         }
     }
