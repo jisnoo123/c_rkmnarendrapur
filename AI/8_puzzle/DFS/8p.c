@@ -119,20 +119,29 @@ int shuffle(){
         }
     }
     else{
-        printf("\nHi");
         return 3;
     }
 }
 
 void DFS(){
     assign_matrix(state,init);
+    printf("Initial state:\n");
     display_matrix(state);
+    printf("\nGoal state:\n");
+    display_matrix(goal);
+
+    printf("\nComputation:\n");
     int res;
 
-    while(res = shuffle() == 1){
-        display_matrix(state);
+    do{
+        res = shuffle();
+        if(res == 1){
+            printf("\nResult: %d\n", res);
+            display_matrix(state);
+        }
     }
-    printf("\nFinal res: %d", res);
+    while(res == 1);
+        
     if(res == 4){
         display_matrix(state);
         printf("\nSuccessful!");
