@@ -77,9 +77,7 @@ int check_bounds(char ch){
 
 int shuffle(){
     // Return 4 if state is goal, 3 if no opts available, 2 if out of bounds, 1 if shuffle successful
-    //printf("\nBro?");
     if(is_goal()==1){
-        //printf("\n4");
         return 4;
     }
 
@@ -110,11 +108,9 @@ int shuffle(){
                 state[vacant[0]][vacant[1]] = state[vacant[0]+1][vacant[1]];
                 state[vacant[0]+1][vacant[1]] = -1;
             }
-            //printf("\n1");
             return 1;
         }
         else{
-            //printf("\n2");
             return 2;
         }
     }
