@@ -6,13 +6,6 @@ char moves[5] = {'R', 'L', 'U', 'D'};
 int pos[2] = {-1,-1};
 char avail_moves[5];
 
-struct node{
-    char move;
-    int h;
-    struct node *next;
-};
-struct node *head = NULL;
-
 void input(){
     printf("\nEnter input matrix:\n");
     for(int i=0; i<3; i++){
@@ -180,18 +173,6 @@ void SHC(){
     }
 }
 
-void add_ll(int heur, char mov){
-    struct node *p = head;
-    if(p!=NULL){
-        while(p->next!=NULL){
-            p = p->next;
-        }
-    }
-    p->h = heur;
-    p->move = mov;
-    p->next = NULL;
-}
-
 void STHC(){
     int current[3][3], succ[3][3];
     copy_matrix(inp, current);
@@ -207,20 +188,26 @@ void STHC(){
         puts(avail_moves);
         printf("\nHeuristic of current: %d", h_p);
         int i = 0;
+        int min_h=10; char min_move='\0';
         while(avail_moves[i]!='\0'){
             shuffle(avail_moves[i], succ, current);
             int h_s = calc_heuristic(succ);
             printf("\nHeuristic of successor on %c move: %d", avail_moves[i], h_s);
-            if(h_s <= h_p){
-                add_ll(h_s, avail_moves[i]);
-                f = 1;
+            if(h_s<min_h){
+                min_h = h_s;
+                min_move = avail_moves[i];
             }
             i++;
-        }
-        if(f==1){      
-            printf("\nNext state found on move %c ", selected_move);
+        } 
+        if(min_h<=h_p){
+            f=1; 
+            printf("\nNext state found on move %c ", min_move);
+            shuffle(min_move, succ, current);
             display_matrix(succ);
+            copy_matrix(succ, current); //Change parent
+            h_p = min_h;    //Change parent's heuristic
         }
+        //getchar();
     } 
     while(h_p!=0 && f==1);
     
