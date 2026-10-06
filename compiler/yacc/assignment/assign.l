@@ -10,7 +10,8 @@
 "=" {return '=';}
 "-" {return '-';}
 [\t] ;
-\n {return '\n';}
+" " ;
+"\n" {return '\n';}
 . {return yytext[0];}
 %%
 
